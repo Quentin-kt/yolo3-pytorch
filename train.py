@@ -105,7 +105,9 @@ def fit_ont_epoch(net,yolo_losses,epoch,epoch_size,epoch_size_val,gen,genval,Epo
     print('Total Loss: %.4f || Val Loss: %.4f ' % (total_loss/(epoch_size+1),val_loss/(epoch_size_val+1)))
 
     print('Saving state, iter:', str(epoch+1))
-    torch.save(model.state_dict(), 'logs/Epoch%d-Total_Loss%.4f-Val_Loss%.4f.pth'%((epoch+1),total_loss/(epoch_size+1),val_loss/(epoch_size_val+1)))
+    # torch.save(model.state_dict(), 'logs/Epoch%d-Total_Loss%.4f-Val_Loss%.4f.pth'%((epoch+1),total_loss/(epoch_size+1),val_loss/(epoch_size_val+1)))
+    # 权重暂时只使用序号，方便定位权重文件，后期再改进
+    torch.save(model.state_dict(), 'logs/Epoch%d.pth'%((epoch+1)),_use_new_zipfile_serialization=False)
 
 #----------------------------------------------------#
 #   检测精度mAP和pr曲线计算参考视频
