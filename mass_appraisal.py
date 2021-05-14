@@ -15,15 +15,15 @@ def alter(file, old_str, new_str):
 
 yolo = r"./yolo.py"
 get_map = r"./get_map.py"
-for idx in range(1, 11):
+for idx in range(1, 4):
     old_pth = "Epoch" + str(idx) + ".pth"
     new_pth = "Epoch" + str(idx + 1) + ".pth"
-    old_result = 'results_files_path = "results' + str(idx)
-    new_result = 'results_files_path = "results' + str(idx + 1)
+    old_result = 'results/results_' + str(idx)
+    new_result = 'results/results_' + str(idx + 1)
     os.system("python ./get_dr_txt.py")
     os.system("python ./get_gt_txt.py")
     os.system("python ./get_map.py")
     alter(yolo, old_pth, new_pth)
     alter(get_map, old_result, new_result)
-alter(yolo, "Epoch11.pth", "Epoch1.pth")
-alter(get_map, 'results_files_path = "results11"', 'results_files_path = "results1"')
+alter(yolo, "Epoch4.pth", "Epoch1.pth")
+alter(get_map, 'results/results_4', 'results/results_1')
