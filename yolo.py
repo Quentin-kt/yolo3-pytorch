@@ -26,7 +26,7 @@ from utils.utils import (DecodeBox, bbox_iou, letterbox_image,
 #--------------------------------------------#
 class YOLO(object):
     _defaults = {
-        "model_path"        : 'logs/Epoch100.pth',
+        "model_path"        : 'logs/Epoch1.pth',
         "classes_path"      : 'model_data/voc_classes.txt',
         "model_image_size"  : (416, 416, 3),
         "confidence"        : 0.5,

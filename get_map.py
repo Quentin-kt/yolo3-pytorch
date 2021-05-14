@@ -369,7 +369,7 @@ def draw_plot_func(dictionary, n_classes, window_title, plot_title, x_label, out
 TEMP_FILES_PATH = ".temp_files"
 if not os.path.exists(TEMP_FILES_PATH):  # if it doesn't exist already
     os.makedirs(TEMP_FILES_PATH)
-results_files_path = "results"
+results_files_path = "results1"
 if os.path.exists(results_files_path):  # if it exist already
     # reset the results directory
     shutil.rmtree(results_files_path)
@@ -615,7 +615,7 @@ with open(results_files_path + "/results.txt", 'w') as results_file:
                         ua = (bb[2] - bb[0] + 1) * (bb[3] - bb[1] + 1) + (bbgt[2] - bbgt[0]
                                                                           + 1) * (bbgt[3] - bbgt[1] + 1) - iw * ih
                         ov = iw * ih / ua
-                        # ov=detection["'confidence'"]
+                        # ov=float(detection["confidence"])
                         if ov > ovmax:
                             ovmax = ov
                             gt_match = obj
