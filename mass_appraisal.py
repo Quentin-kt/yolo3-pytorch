@@ -1,4 +1,6 @@
 import os
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 # 重命名文件中的特定字符串
@@ -59,3 +61,12 @@ with open(map_summary_path, "a", encoding="utf-8") as map_summary_txt:
     map_summary_txt.write('map_max=' + '第' + str(map_max_idx + 1) + '次训练——' + map_max + '%')
 print('###############################################')
 print('map_max=' + '第' + str(map_max_idx + 1) + '次训练——' + map_max + '%')
+
+"""
+评估结果绘图
+"""
+x = np.arange(3)
+y = [float(x) for x in map_list]
+plt.figure()
+plt.plot(x, y, 'o-')
+plt.savefig("results/map_summary.jpg")
