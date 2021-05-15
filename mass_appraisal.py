@@ -15,11 +15,18 @@ def alter(file, old_str, new_str):
 
 
 """
+变量初始化
+"""
+# 批量评估的起始点
+start_idx = 1
+end_idx = 100
+
+"""
 批量评估
 """
 yolo_path = r"./yolo.py"
 get_map_path = r"./get_map.py"
-for idx in range(1, 4):
+for idx in range(start_idx, end_idx + 1):
     old_pth = "Epoch" + str(idx) + ".pth"
     new_pth = "Epoch" + str(idx + 1) + ".pth"
     old_result = 'results/results_' + str(idx)
@@ -31,8 +38,8 @@ for idx in range(1, 4):
     os.system("python ./get_map.py")
     alter(yolo_path, old_pth, new_pth)
     alter(get_map_path, old_result, new_result)
-alter(yolo_path, "Epoch4.pth", "Epoch1.pth")
-alter(get_map_path, 'results/results_4', 'results/results_1')
+alter(yolo_path, 'Epoch' + str(end_idx + 1) + '.pth', 'Epoch' + str(start_idx) + '.pth')
+alter(get_map_path, 'results/results_' + str(end_idx + 1), 'results/results_' + str(start_idx))
 
 """
 评估结果汇总与取优
@@ -42,7 +49,7 @@ map_summary_path = "results/map_summary.txt"
 map_list = []
 if os.path.exists(map_summary_path):  # if it exist already
     os.remove(map_summary_path)
-for idx in range(1, 4):
+for idx in range(start_idx, end_idx + 1):
     result_path = "results/results_" + str(idx) + "/results.txt"
     key_str = "mAP = "
     with open(result_path, "r", encoding="utf-8") as result_txt:
@@ -65,7 +72,7 @@ print('map_max=' + '第' + str(map_max_idx + 1) + '次训练——' + map_max + 
 """
 评估结果绘图
 """
-x = np.arange(3)
+x = np.arange(end_idx)
 y = [float(x) for x in map_list]
 plt.figure()
 plt.plot(x, y, 'o-')
