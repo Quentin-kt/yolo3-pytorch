@@ -62,12 +62,13 @@ for idx in range(start_idx, end_idx + 1):
                 map_list[idx - 1] = map_list[idx - 1].strip('mAP = ')
                 map_list[idx - 1] = map_list[idx - 1].strip('%\n')
                 break
+map_list = [float(x) for x in map_list]
 map_max = max(map_list)
-map_max_idx = map_list.index(map_max)
+map_max_idx = map_list.index(max(map_list))
 with open(map_summary_path, "a", encoding="utf-8") as map_summary_txt:
-    map_summary_txt.write('map_max=' + '第' + str(map_max_idx + 1) + '次训练——' + map_max + '%')
+    map_summary_txt.write('map_max=' + '第' + str(map_max_idx + 1) + '次训练——' + str(map_max) + '%')
 print('###############################################')
-print('map_max=' + '第' + str(map_max_idx + 1) + '次训练——' + map_max + '%')
+print('map_max=' + '第' + str(map_max_idx + 1) + '次训练——' + str(map_max) + '%')
 
 """
 评估结果绘图
