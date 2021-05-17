@@ -20,17 +20,19 @@ def alter(file, old_str, new_str):
 """
 # 批量评估的起始点
 start_idx = 1
-end_idx =100
-
-"""
-批量评估
-"""
+end_idx = 100
 yolo_path = r"./yolo.py"
 get_map_path = r"./get_map.py"
 new_pth = "Epoch" + str(start_idx) + ".pth"
 new_result = 'results/results_' + str(start_idx)
 alter(yolo_path, 'Epoch1.pth', new_pth)
 alter(get_map_path, 'results/results_1', new_result)
+if os.path.exists("results"):  # if it exist already
+    shutil.rmtree("results")
+
+"""
+批量评估
+"""
 for idx in range(start_idx, end_idx + 1):
     if os.path.exists("input"):  # if it exist already
         shutil.rmtree("input")
