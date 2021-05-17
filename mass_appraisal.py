@@ -1,4 +1,5 @@
 import os
+import shutil
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -27,6 +28,8 @@ end_idx = 100
 yolo_path = r"./yolo.py"
 get_map_path = r"./get_map.py"
 for idx in range(start_idx, end_idx + 1):
+    if os.path.exists("input"):  # if it exist already
+        shutil.rmtree("input")
     old_pth = "Epoch" + str(idx) + ".pth"
     new_pth = "Epoch" + str(idx + 1) + ".pth"
     old_result = 'results/results_' + str(idx)
