@@ -20,13 +20,17 @@ def alter(file, old_str, new_str):
 """
 # 批量评估的起始点
 start_idx = 1
-end_idx = 100
+end_idx =100
 
 """
 批量评估
 """
 yolo_path = r"./yolo.py"
 get_map_path = r"./get_map.py"
+new_pth = "Epoch" + str(start_idx) + ".pth"
+new_result = 'results/results_' + str(start_idx)
+alter(yolo_path, 'Epoch1.pth', new_pth)
+alter(get_map_path, 'results/results_1', new_result)
 for idx in range(start_idx, end_idx + 1):
     if os.path.exists("input"):  # if it exist already
         shutil.rmtree("input")
@@ -41,8 +45,8 @@ for idx in range(start_idx, end_idx + 1):
     os.system("python ./get_map.py")
     alter(yolo_path, old_pth, new_pth)
     alter(get_map_path, old_result, new_result)
-alter(yolo_path, 'Epoch' + str(end_idx + 1) + '.pth', 'Epoch' + str(start_idx) + '.pth')
-alter(get_map_path, 'results/results_' + str(end_idx + 1), 'results/results_' + str(start_idx))
+alter(yolo_path, 'Epoch' + str(end_idx + 1) + '.pth', 'Epoch1.pth')
+alter(get_map_path, 'results/results_' + str(end_idx + 1), 'results/results_1')
 
 """
 评估结果汇总与取优
@@ -52,8 +56,10 @@ map_summary_path = "results/map_summary.txt"
 map_list = []
 if os.path.exists(map_summary_path):  # if it exist already
     os.remove(map_summary_path)
-for idx in range(start_idx, end_idx + 1):
-    result_path = "results/results_" + str(idx) + "/results.txt"
+# 遍历results.txt
+for idx in range(1, end_idx - start_idx + 2):
+    real_idx = start_idx + idx - 1
+    result_path = "results/results_" + str(real_idx) + "/results.txt"
     key_str = "mAP = "
     with open(result_path, "r", encoding="utf-8") as result_txt:
         for line in result_txt:
@@ -67,16 +73,16 @@ for idx in range(start_idx, end_idx + 1):
                 break
 map_list = [float(x) for x in map_list]
 map_max = max(map_list)
-map_max_idx = map_list.index(max(map_list))
+map_max_idx = map_list.index(max(map_list)) + start_idx
 with open(map_summary_path, "a", encoding="utf-8") as map_summary_txt:
-    map_summary_txt.write('map_max=' + '第' + str(map_max_idx + 1) + '次训练——' + str(map_max) + '%')
+    map_summary_txt.write('map_max=' + '第' + str(map_max_idx) + '次训练——' + str(map_max) + '%')
 print('###############################################')
-print('map_max=' + '第' + str(map_max_idx + 1) + '次训练——' + str(map_max) + '%')
+print('map_max=' + '第' + str(map_max_idx) + '次训练——' + str(map_max) + '%')
 
 """
 评估结果绘图
 """
-x = np.arange(end_idx)
+x = np.arange(end_idx - start_idx + 1)
 y = [float(x) for x in map_list]
 plt.figure()
 plt.plot(x, y, 'o-')
