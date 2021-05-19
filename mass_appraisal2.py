@@ -20,7 +20,7 @@ def alter(file, old_str, new_str):
 """
 # 批量评估的起始点
 start_idx = 1
-end_idx = 10
+end_idx = 100
 yolo_path = r"./yolo.py"
 appraisal_path = r"./appraisal.py"
 new_pth = "Epoch" + str(start_idx) + ".pth"
@@ -76,7 +76,7 @@ loss_list = [float(x) for x in loss_list]
 loss_min = min(loss_list)
 loss_min_idx = loss_list.index(loss_min) + start_idx
 with open(loss_summary_path, "a", encoding="utf-8") as loss_summary_txt:
-    loss_summary_txt.write('loss_min=' + '第' + str(loss_min_idx) + '次训练——' + str(loss_min) + '%')
+    loss_summary_txt.write('loss_min=' + '第' + str(loss_min_idx) + '次训练——' + str(loss_min))
 print('###############################################')
 print('loss_min=' + '第' + str(loss_min_idx) + '次训练——' + str(loss_min))
 
@@ -86,5 +86,9 @@ print('loss_min=' + '第' + str(loss_min_idx) + '次训练——' + str(loss_min
 x = np.arange(end_idx - start_idx + 1)
 y = [float(x) for x in loss_list]
 plt.figure()
+plt.grid(True)  # 网格线
+plt.title('bce_loss_min = ' + str(loss_min))
+plt.xlabel('index')
+plt.ylabel('Average loss')
 plt.plot(x, y, 'o-')
 plt.savefig("results/loss_summary.jpg")

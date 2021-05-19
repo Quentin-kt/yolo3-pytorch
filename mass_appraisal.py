@@ -87,5 +87,9 @@ print('map_max=' + '第' + str(map_max_idx) + '次训练——' + str(map_max) +
 x = np.arange(end_idx - start_idx + 1)
 y = [float(x) for x in map_list]
 plt.figure()
+plt.grid(True)  # 网格线
+plt.title('mAP_max = ' + str(map_max))
+plt.xlabel('index')
+plt.ylabel('mAP')
 plt.plot(x, y, 'o-')
 plt.savefig("results/map_summary.jpg")
