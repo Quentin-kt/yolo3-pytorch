@@ -743,7 +743,7 @@ with open(results_files_path + "/results.txt", 'w') as results_file:
         rounded_prec = ['%.2f' % elem for elem in prec]
         rounded_rec = ['%.2f' % elem for elem in rec]
         results_file.write(text + "\n Precision: " + str(rounded_prec) + "\n Recall :" + str(rounded_rec) + "\n\n")
-        if not args.quiet:
+        if args.quiet:
             if len(prec) > 0:
                 print(text + "\t||\tscore_threhold=0.5 : " + "F1=" + "{0:.2f}".format(F1[score05_idx]) \
                       + " ; Recall=" + "{0:.2f}%".format(rec[score05_idx] * 100) + " ; Precision=" + "{0:.2f}%".format(
