@@ -68,7 +68,7 @@ for idx in range(1, end_idx - start_idx + 2):
             if key_str in line:
                 # 将map结果写入txt文件
                 with open(map_summary_path, "a", encoding="utf-8") as map_summary_txt:
-                    map_summary_txt.write('Epoch' + str(idx) + '_' + line)
+                    map_summary_txt.write('Epoch' + str(real_idx) + '_' + line)
                 map_list.append(line)
                 map_list[idx - 1] = map_list[idx - 1].strip('mAP = ')
                 map_list[idx - 1] = map_list[idx - 1].strip('%\n')
