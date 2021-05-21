@@ -66,7 +66,7 @@ for idx in range(1, end_idx - start_idx + 2):
             if key_str in line:
                 # 将loss结果写入txt文件
                 with open(loss_summary_path, "a", encoding="utf-8") as loss_summary_txt:
-                    loss_summary_txt.write('Epoch' + str(idx) + '_' + line)
+                    loss_summary_txt.write('Epoch' + str(real_idx) + '_' + line)
                 loss_list.append(line)
                 # 删去字符串首尾的无关字符
                 loss_list[idx - 1] = loss_list[idx - 1].strip(key_str)
